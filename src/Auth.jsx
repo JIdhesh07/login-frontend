@@ -39,7 +39,10 @@ function Auth({ register }) {
             const result = await loginAPI(userData);
             console.log(result);
             if (result.status === 200) {
+                sessionStorage.setItem("existUser",JSON.stringify(result.data.user))
+                sessionStorage.setItem('token',result.data.token)
                 alert('login successful');
+                
                 location('/main');
             } else {
                 alert('invalid');
@@ -57,7 +60,7 @@ function Auth({ register }) {
                         <input type="text" value={userData.username} onChange={e => setUserData({ ...userData, username: e.target.value })} className='form control mb-4' placeholder='username' />
                     }
                     <input type="text" value={userData.email} onChange={e => setUserData({ ...userData, email: e.target.value })} className='form control mb-4' placeholder='email' /><br />
-                    <input type="text" value={userData.password} onChange={e => setUserData({ ...userData, password: e.target.value })} className='form control mb-4' placeholder='password' /><br />
+                    <input  type="password" value={userData.password} onChange={e => setUserData({ ...userData, password: e.target.value })} className='form control mb-4' placeholder='password' /><br />
                     
                     {isRegisterForm &&
                         <input type="text" value={userData.address} onChange={e => setUserData({ ...userData, address: e.target.value })} className='form control mb-4' placeholder='address' />
